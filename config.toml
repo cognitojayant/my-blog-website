@@ -1,0 +1,177 @@
+baseurl = "https://cognitojayant.github.io"
+DefaultContentLanguage = "en"
+title = "My Cognitive Cogitations"
+theme = "beautifulhugo"
+metaDataFormat = "yaml"
+pygmentsStyle = "trac"
+pygmentsUseClasses = true
+pygmentsCodeFences = true
+pygmentsCodefencesGuessSyntax = true
+#pygmentsUseClassic = true
+#pygmentOptions = "linenos=inline"
+disqusShortname = "cognitojayant"
+#googleAnalytics = "XXX"
+paginate = 5
+
+[markup]
+    defaultMarkdownHandler = "goldmark"
+    [markup.goldmark]
+        [markup.goldmark.extensions]
+            definitionList = true
+            footnote = true
+            linkify = true
+            strikethrough = true
+            table = true
+            taskList = true
+            typographer = true
+        [markup.goldmark.parser]
+            attribute = true
+            autoHeadingID = true
+            autoHeadingIDType = "github"
+        [markup.goldmark.renderer]
+            hardWraps = false
+            unsafe = true
+            xHTML = false
+    [markup.highlight]
+        codeFences = true
+        guessSyntax = false
+        lineNos = true
+        lineNumbersInTable = true
+        noClasses = false
+    [markup.tableOfContents]
+        startLevel = 2
+        endLevel = 6
+        ordered = true
+
+
+# Taxonomies
+[taxonomies]
+    category = "categories"
+    tag = "tags"
+
+[Params]
+    #homeTitle = "All " # Set a different text for the header on the home page
+  # subtitle = "Build a beautiful and simple website in minutes"
+  #mainSections = ["post","posts"]
+    logo = "img/avatar-2.jpg" # Expecting square dimensions
+    favicon = "img/favicon.ico"
+    dateFormat = "January 2, 2006"
+    customCss = ["css/main.css", "css/main-minimal.css"]
+    commit = false
+    rss = true
+    comments = true
+    readingTime = true
+    wordCount = true
+    useHLJS = true
+    socialShare = true
+    delayDisqus = true
+    showRelatedPosts = true
+#  hideAuthor = true
+#  gcse = "012345678901234567890:abcdefghijk" # Get your code from google.com/cse. Make sure to go to "Look and Feel" and change Layout to "Full Width" and Theme to "Classic"
+
+
+
+[Author]
+  name = "Jayant Jha"
+  website = "cognitojayant.github.io"
+  email = "cognitojayant@gmail.com"
+  #facebook = "username"
+  github = "cognitojayant"
+  #gitlab = "username"
+  #bitbucket = "username"
+  twitter = "cognitojayant"
+  #reddit = "username"
+  linkedin = "jayant-k-jha"
+  #xing = "username"
+  #stackoverflow = "users/XXXXXXX/username"
+  #snapchat = "username"
+  #instagram = "username"
+  #youtube = "user/username" # or channel/channelname
+  #soundcloud = "username"
+  #spotify = "username"
+  #bandcamp = "username"
+  #itchio = "username"
+  #vk = "username"
+  #paypal = "username"
+  #telegram = "username"
+  #500px = "username"
+  #codepen = "username"
+  #mastodon = "url"
+  #kaggle = "username"
+  #weibo = "username"
+  #slack = "username"
+
+[[menu.main]]
+    url = "/posts/"
+    name = "Posts"
+    weight = 1
+    pre = "internal"
+    post = "archive"
+
+[[menu.main]]
+    url = "/categories/"
+    name = "Categories"
+    weight = 2
+    pre = "internal"
+    post = "th"
+
+[[menu.main]]
+    url = "/tags/"
+    name = "Tags"
+    weight = 3
+    pre = "internal"
+    post = "tags"
+
+[[menu.main]]
+    url = "/about/"
+    name = "About"
+    weight = 5
+    pre = "internal"
+    post = "user-circle"
+
+#[[menu.main]]
+#    weight = 8
+#    identifier = "search"
+#    post = "search"
+
+
+
+#[[menu.main]]
+#    parent = "Category"
+#    name = "Big Image Sample"
+#    url = "post/2017-03-07-bigimg-sample"
+#    weight = 1
+
+#[[menu.main]]
+#    parent = "samples"
+#    name = "Math Sample"
+#    url = "post/2017-03-05-math-sample"
+#    weight = 2
+
+#[[menu.main]]
+#    parent = "samples"
+#    name = "Code Sample"
+#    url = "post/2016-03-08-code-sample"
+#    weight = 3
+
+#[[menu.main]]
+#    name = "Tags"
+#    url = "tags"
+#    weight = 3
+
+#[[menu.main]]
+#    identifier = "samples"
+#    name = "Samples"
+#    weight = 2
+
+#[[Params.bigimg]]
+#  src = "img/triangle.jpg"
+#  desc = "Triangle"
+#[[Params.bigimg]]
+#  src = "img/sphere.jpg"
+#  desc = "Sphere"
+#  # position: see values of CSS background-position.
+#  position = "center top"
+#[[Params.bigimg]]
+#  src = "img/hexagon.jpg"
+#  desc = "Hexagon"
