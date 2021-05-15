@@ -11,7 +11,7 @@ Hey, my name is Jayant Jha currently working as Machine Learning Scientist at a 
 
 > "**What I cannot create,  i do not understand**"
 
-I have learned machine learning and deep learning from massive collections of available Literature's and MOOC's. Main purpose of this website is to augment my understanding of mathematical and technical detail about machine learning, deep learning and computer science fundamentals.
+I have learned machine learning and deep learning from massive collections of available Literature's and MOOC's. Main purpose of this blog is to augment my understanding of mathematical and technical detail about machine learning, deep learning and computer science fundamentals.
 
 ---
 
