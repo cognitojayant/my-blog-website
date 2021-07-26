@@ -1,30 +1,30 @@
 ---
 title: "Memory Management in Python"
-date: 2021-05-13T02:21:10+05:30
+date: 2021-05-13
 draft: false
 tags: ["Python"]
 categories: ["Python", "Parallelism"]
 ---
 
 ## What is Memory Management?
-Memory management is a procedure by which applications or program to read and write some data from memory. A memory manager determines where to put an application’s data. Since there’s  only finite chunk of memory available to us.
+Memory management is a procedure by which applications or program to read and write some data from memory. A memory manager determines where to put application’s data. Since there’s  only a finite chunk of memory available to us.
 
-This process of giving access to memory to a program or application is by and large called memory allocation. On top of hardware layers such as RAM or a hard drive is the operating system (OS) layer which consists of  One of the fundamental layers over the equipment (like RAM or a hard drive) is the working framework (OS) consists of a *Kernel* which is  the operating  system code that is responsible for interaction of hardware and software components. A *kernel* is first program that loads at startup after bootloader and having a reserved memory separated from programs and applications.  It carries out (or denies) requests to read and write from memory.
+This process of giving access to memory to a program or application is by in large called memory allocation. On top of hardware layers such as RAM or a hard drive is their an operating system (OS) layer which consists of a *Kernel* which can be considered as the operating  system code that is responsible for interaction of hardware and software components. A *kernel* is the first program that loads at startup after bootloader and having a seperate reserved memory space from programs and applications.  It carries out (or denies) requests to read and write from memory.
 
 ![kernel-hardware-interaction.png](/posts/memory-management-in-python/kernel-hardware-interaction.png)
 
-Memory management for your Python code is handled by the Python application or process. Above the OS, there are applications, one of which is the default Python implementation.
+Memory management for your Python code is handled by the Python application or process. Above the OS layer, there are applications and processes at application layer, one of which is the Python application or processes.
 
 ![python-vmm.png](/posts/memory-management-in-python/python-vmm.png)
 
 ### How it is implemented in Python?
 The default Python execution, `CPython`, is actually written in the C programming language. Yet, there are executions other than `CPython`. For instance, `Jython` arranges down to Java `bytecode` to run on the Java Virtual Machine.
 
-Python is an interpreted programming language. Our Python code actually gets compiled down to more computer-readable instructions called as `bytecode`. Then these instructions get interpreted by a virtual machine when we run your code.
+Python is an interpreted programming language. Our Python code actually gets compiled down to more computer-readable instructions called as `bytecode`. Then these instructions gets interpreted by a virtual machine when we run our code.
 
 Usually in Cpython implementation, `.pyc` file or a `__pycache__` folder will be created after compilation. `.pyc`contains all the `bytecode` which gets interpreted by the virtual machine.
 
-Virtual machines similar to physical computers except they are implemented in software.
+Virtual machines are very much similar to physical computers except they are implemented in software.
 
 `CPython` is written in C, and it interprets Python `bytecode` after compilation.
 
@@ -36,11 +36,11 @@ Well, the memory management algorithms and structures exist in the `CPython` cod
 Everything in Python is an object, even types such as `int` and `str.` Well, it’s true on an implementation level in `CPython`. There is a struct called a `PyObject`, which every other object in `CPython` uses.
 
 A struct, or structure, in C is a custom data type that groups together different data types.
-PyObject, the grand-daddy of all objects in Python, contains only two things:
+PyObject, the archetype of all objects in Python, contains only two things:
 - `ob_refcnt`:Reference Count
     -  Reference count is used for garbage collection
-    -   Python allows you to inspect the current reference count of an object with the `sys` module. We can use `sys.getrefcount(numbers)`, but keep in mind that passing in the object to `getrefcount()` increases the reference count by 1.
-    - In any case, if the object is still required to hang around in your code, its reference count is greater than 0. Once it drops to 0, the object has a specific deallocation function that is called which “frees” the memory so that other objects can use it.
+    -   Python allows you to inspect the current reference count of an object with the `sys` module. We can use `sys.getrefcount(numbers)`, but should be kept in mind that passing in the object to `getrefcount()` increases the reference count by 1.
+    - In any case, if the object is still required need to be hang around in our code, its reference count is greater than 0. Once it drops to 0, the object has a specific deallocation function that is called which “frees” the memory so that other objects can use it.
 - `ob_type`: Pointer to another Type
     - Then you have a pointer to the actual object type. That object type is just another struct that describes a Python object (such as a dict or int)
 
@@ -58,7 +58,7 @@ At a very low level, a raw memory allocator always ensures that there is enough 
 
     The methods/method calls and the references are stored in stack memory and all the values objects are stored in a private heap.  Example of this process 
 
-            ```python
+    ```python
             def func1(num: int):
             				return num = func2(num)
             def func2(num: int):
@@ -68,11 +68,11 @@ At a very low level, a raw memory allocator always ensures that there is enough 
             				val = 7
             				result = func1(someNum)
             	
-            ```
+    ```
 
-            Can be visualised as  
+    Can be visualised as  
 
-            ![stack-heap-memory-example.png](/posts/memory-management-in-python/stack-heap-memory-example.png)
+    ![stack-heap-memory-example.png](/posts/memory-management-in-python/stack-heap-memory-example.png)
 
 ## Allocation and Deallocation in `Cpython`
 Memory is a shared resource between applications and processes on the computer, and bad things can happen very easily if two different processes try to write to the same location simultaneously.
@@ -92,7 +92,7 @@ Here comes to rescue, GIL which is solution to dealing with shared resources. Py
 
     ![usable-arena.png](/posts/memory-management-in-python/usable-arena.png)
 
-    - Arenas are the only things that can truly be freed. So, it stands to reason that those arenas that are closer to being empty should be allowed to become empty.That way, that chunk of memory can be truly freed, reducing the overall memory footprint of your Python program.
+    - Arenas are the only things that can truly be freed. So, it stands to reason that those arenas that are closer to being empty should be allowed to become empty.That way, that chunk of memory can be truly freed, reducing the overall memory footprint of our Python program.
 - pools
     - Pools are composed of blocks from a single size class. Each pool maintains a double-linked list to other pools of the same size class. In that way, the algorithm can easily find available space for a given block size, even across different pools.
     - Within the arenas are pools, which are one virtual memory page (4 kilobytes).
@@ -101,7 +101,7 @@ Here comes to rescue, GIL which is solution to dealing with shared resources. Py
     ![pools-in-CPython.png](/posts/memory-management-in-python/pools-in-CPython.png)
 
     - A freepools list keeps track of all the pools in the empty state. But when do empty pools get used?
-    - A usedpools list tracks all the pools that have some space available for data for each size class. When a given block size is requested, the algorithm checks this usedpools list for the list of pools for that block size. Assume your code needs an 8-byte chunk of memory. If there are no pools in usedpools of the 8-byte size class, a fresh empty pool is initialized to store 8-byte blocks. This new pool then gets added to the usedpools list so it can be used for future requests.
+    - A usedpools list tracks all the pools that have some space available for data for each size class. When a given block size is requested, the algorithm checks this usedpools list for the list of pools for that block size. Assume our code needs an 8-byte chunk of memory. If there are no pools in usedpools of the 8-byte size class, a fresh empty pool is initialized to store 8-byte blocks. This new pool then gets added to the usedpools list so it can be used for future requests.
     - Say a full pool frees some of its blocks because the memory is no longer needed. That pool would get added back to the usedpools list for its size class
 - Blocks
     - These pools are fragmented into smaller blocks of memory.

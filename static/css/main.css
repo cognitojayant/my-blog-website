@@ -137,7 +137,7 @@ img {
 /* --- Navbar --- */
 
 .navbar-custom {
-  background: linear-gradient(90deg, #ff9933, white, red);
+  background: #30302f;
   border-bottom: 1px solid #EAEAEA;
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
@@ -151,7 +151,7 @@ img {
 .navbar-custom .navbar-brand,
 .navbar-custom .nav li a {
   font-weight: 800;
-  color: #000000;
+  color:#ffffff;
 }
 
 .navbar-custom .navbar-brand:hover,
@@ -299,7 +299,7 @@ img {
 
 footer {
   padding: 30px;
-  background: linear-gradient(90deg, #ff9933, white, red);
+  background: #f2f2f2;
   border-top: 1px #EAEAEA solid;
   margin-top: auto;
   font-size: 14px;
