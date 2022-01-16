@@ -10,13 +10,15 @@ categories: ["Mathematics", "Optimizations"]
 ### What is Gradient Descent?
 Gradient descent is a first-order iterative optimization algorithm in which search direction is guided by the gradient information of the objective function or to be precise in the opposite direction of the gradient of the objective function. Hence, the name  **Gradient Descent**
 
+
 $$\theta_{t+1} = \theta_t -  \eta \cdot \nabla_\theta L(\theta) $$
 
-where $\nabla_\theta L(\theta)$  is the gradient with respect to $\theta$ .
 
-<!-- ![Gradient_Descent](/posts/overview-optimization-algorithms/gradient-descent.webm) -->
+where $\nabla_\theta L(\theta)$  is the gradient with respect to $\theta$.
 
-Gradient Descent [1] - We randomly initiate parameters then these parameters move through these terrains, the valleys to reach their optimum value by moving in the direction opposite to its gradient.
+![Gradient_Descent](/posts/static/optimization/gradient-descent.webm)
+
+Gradient Descent - We randomly initiate parameters then these parameters move through these terrains, the valleys to reach their optimum value by moving in the direction opposite to its gradient.
 
 ```python
     #implementation of gradient descent
@@ -29,7 +31,7 @@ Gradient Descent [1] - We randomly initiate parameters then these parameters mov
 
 
 But why move in the direction opposite to gradient direction? Why gradient in the opposite direction is optimum?
-    The answer comes from Taylor's Series, ignoring higher order terms
+The answer comes from Taylor's Series, ignoring higher order terms
 
 $$L\left( \theta +\eta \Delta \theta \right) =L\left( \theta \right) +\eta \Delta \theta ^{T}\cdot \nabla L\left( \theta \right) +\dfrac{n^{2}}{2!}\ast \triangle \theta ^{T}\nabla ^{2}L\left( \theta \right) \Delta \theta +\ldots$$
 
@@ -61,6 +63,7 @@ Therefore, $L\left( \theta +\eta \Delta \theta \right) -L\left( \theta \right) =
   - Get trapped in saddle points
     - Another key challenge of minimizing highly non-convex error functions common for neural networks is avoiding getting trapped in their numerous suboptimal local minima
     - Dauphin et al. [5] argue that the difficulty arises in fact not from local minima but from saddle points, i.e. points where one dimension slopes up and another slopes down. These saddle points are usually surrounded by a plateau of the same error, which makes it notoriously hard for SGD to escape, as the gradient is close to zero in all dimensions
+
 #### Variants of Gradient Descent
 
 - ##### Batch gradient descent
@@ -79,7 +82,7 @@ Stochastic gradient descent (SGD) differs from batch gradient descent that it up
 
 $$\theta=\theta-\eta \cdot \nabla_{\theta} L\left(\theta ; x^{(i)} ; y^{(i)}\right)$$
 
-![overview](/posts/overview-optimization-algorithms/untitled.png)
+![overview](/posts/static/optimization/oscillation-in-SGD.png)
 
 As we can see vanilla gradient descent performs unnecessary computations for large datasets, as it computes gradient for each parameters and updates through each examples. SGD relaxes this computations by performing one update at a time for a single example. Therefore, SGD are much faster than vanilla gradient descent and can be used in online learning.
 
@@ -119,7 +122,7 @@ In the regions that have gentle slopes, momentum  based gradient descent takes v
 
 To get this, we provide momentum term some kind of prescience i.e. we want to compute the gradient based on the future update or look ahead position $\gamma v_{t-1}$. And the nudge the parameters based on this.
 
-![An%20overview%20of%20gradient%20descent%20optimization%20algor%20672a924dd3dd4bb1b2bd51376d1d3f16/Untitled%201.png](An%20overview%20of%20gradient%20descent%20optimization%20algor%20672a924dd3dd4bb1b2bd51376d1d3f16/Untitled%201.png)
+![](/posts/static/optimization/momentum-nesterov.png)
 
 In Nesterov momentum,  instead of calculating gradient at the current position (red circle), we calculate gradient at "look-ahead" position [2].
 
@@ -185,7 +188,7 @@ Typically the value of $\gamma$ is  around $0.9$.
 
 Similarly, decayed squared parameters updates
 
-$$E[\Delta \theta^2]_t = \gamma E[\Delta \theta^2]_{t-1} + (1 - \gamma) \Delta \theta^{2}_{t}$$
+$$E[\Delta \theta^2] _t = \gamma E[\Delta \theta^2]_{t-1} + (1 - \gamma) \Delta \theta^{2}_{t}$$
 
 Update rule for Adadelta
 
@@ -219,7 +222,10 @@ $$\Delta \theta {t}=-\dfrac{\eta }{\sqrt{E\left[ g^{2}\right]_ t{+\;\varepsilon 
 
 RMSprop is proposed by Geoff Hinton around same time as Adadelta. In fact, RMSprop is identical to the first parameter update to Adadelta 
 
-$$\begin{aligned}E\left[g^{2}\right]_{t} &=0.9 E\left[g^{2}\right]_{t-1}+0.1 g_{t}^{2} \\\theta_{t+1} &=\theta_{t}-\frac{\eta}{\sqrt{E\left[g^{2}\right]_{t}+\epsilon}} g_{t}\end{aligned}$$
+$$ \begin{aligned}
+E\left[g^{2}\right]_{t} &=0.9 E\left[g^{2}\right]_{t-1}+0.1 g_{t}^{2} 
+\\ \theta_{t+1} &=\theta_{t}-\frac{\eta}{\sqrt{E\left[g^{2}\right]_{t}+\epsilon}} g_{t}
+\end{aligned} $$
 
 ```python
         def RMS_prop(params, x, y, epochs, lr=0.01, gamma=0.9, epsilon=1e-8):
@@ -265,7 +271,7 @@ The authors propose default values of $0.9$ for $β_1$, $0.999$ for $\beta_2$, a
                 variance = beta_2 * variance + ((1 - beta_2) * (params_grad ** 2))
                 mean_hat = mean / (1 - (beta_1**i))
                 variance_hat = mean / (1 - (beta_2 ** i))
-                params = params - (lr * mean_hat) / (jnp.sqrt(variance_hat) + epsilon)
+                params = params - (lr * mean_hat) / (jnp.posts/overview-optimization-algorithms/untitled.png
 
             return params
 ```
@@ -350,8 +356,9 @@ A hypergradient is a gradient with respect to a hyperparameter. Hyperparameter a
 
 Hypergradient is all about applying gradient descent for learning rate $\eta.$ And this requires finding a partial derivative of the objective function with respect to the learning rate.
 
-$$\begin{aligned}\dfrac{\partial L\left( \theta_ {t+1}\right) }{\partial \eta }&=\left( g_{t+1}\right) ^{T}\cdot \dfrac{\partial }{\partial \eta }\left( \theta_ {t}-\eta g_{t-1}\right) \\
-        &=\left( g_{t+1}\right) ^{T}\cdot \left( -g_{t-1}\right) \end{aligned}$$
+$$\begin{aligned}\dfrac{\partial L\left( \theta_ {t+1}\right) }
+{\partial \eta }&=\left( g_{t+1}\right) ^{T}\cdot \dfrac{\partial }{\partial \eta }\left( \theta_ {t}-\eta g_{t-1}\right)
+ \\&=\left( g_{t+1}\right) ^{T}\cdot \left( -g_{t-1}\right) \end{aligned}$$
 
 Computing the hypergradient thus requires keeping track of the last gradient.
 

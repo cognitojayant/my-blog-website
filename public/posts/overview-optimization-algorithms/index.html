@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Optimizations Algorithms in Machine Learning - My Cognitive Cogitations</title>
+  <meta name="description" content="What is Gradient Descent? Gradient descent is a first-order iterative optimization algorithm in which search direction is guided by the gradient information of the objective function or to be precise in the opposite direction of the gradient of the objective function. Hence, the name Gradient Descent
+$$\theta_{t&#43;1} = \theta_t - \eta \cdot \nabla_\theta L(\theta) $$
+where $\nabla_\theta L(\theta)$ is the gradient with respect to $\theta$.
+Gradient Descent [1] - We randomly initiate parameters then these parameters move through these terrains, the valleys to reach their optimum value by moving in the direction opposite to its gradient.">
+  <meta name="author" content="Jayant Jha"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "My Cognitive Cogitations",
+    
+    "url": "https:\/\/cognitojayant.github.io"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/cognitojayant.github.io"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/cognitojayant.github.io",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/cognitojayant.github.io\/posts\/overview-optimization-algorithms\/",
+          "name": "Optimizations algorithms in machine learning"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Jayant Jha"
+  },
+  "headline": "Optimizations Algorithms in Machine Learning",
+  "description" : "What is Gradient Descent? Gradient descent is a first-order iterative optimization algorithm in which search direction is guided by the gradient information of the objective function or to be precise in the opposite direction of the gradient of the objective function. Hence, the name Gradient Descent\n$$\\theta_{t\u002b1} = \\theta_t - \\eta \\cdot \\nabla_\\theta L(\\theta) $$\nwhere $\\nabla_\\theta L(\\theta)$ is the gradient with respect to $\\theta$.\nGradient Descent [1] - We randomly initiate parameters then these parameters move through these terrains, the valleys to reach their optimum value by moving in the direction opposite to its gradient.",
+  "inLanguage" : "en",
+  "wordCount":  2950 ,
+  "datePublished" : "2021-07-11T00:00:00",
+  "dateModified" : "2021-07-11T00:00:00",
+  "image" : "https:\/\/cognitojayant.github.io\/img\/avatar-2.jpg",
+  "keywords" : [ "Machine Learning, Deep Learning, Mathematics" ],
+  "mainEntityOfPage" : "https:\/\/cognitojayant.github.io\/posts\/overview-optimization-algorithms\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/cognitojayant.github.io",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/cognitojayant.github.io\/img\/avatar-2.jpg",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="Optimizations Algorithms in Machine Learning" />
+<meta property="og:description" content="What is Gradient Descent? Gradient descent is a first-order iterative optimization algorithm in which search direction is guided by the gradient information of the objective function or to be precise in the opposite direction of the gradient of the objective function. Hence, the name Gradient Descent
+$$\theta_{t&#43;1} = \theta_t - \eta \cdot \nabla_\theta L(\theta) $$
+where $\nabla_\theta L(\theta)$ is the gradient with respect to $\theta$.
+Gradient Descent [1] - We randomly initiate parameters then these parameters move through these terrains, the valleys to reach their optimum value by moving in the direction opposite to its gradient.">
+<meta property="og:image" content="https://cognitojayant.github.io/img/avatar-2.jpg" />
+<meta property="og:url" content="https://cognitojayant.github.io/posts/overview-optimization-algorithms/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="My Cognitive Cogitations" />
+
+  <meta name="twitter:title" content="Optimizations Algorithms in Machine Learning" />
+  <meta name="twitter:description" content="What is Gradient Descent? Gradient descent is a first-order iterative optimization algorithm in which search direction is guided by the gradient information of the objective function or to be precise …">
+  <meta name="twitter:image" content="https://cognitojayant.github.io/img/avatar-2.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@cognitojayant" />
+  <meta name="twitter:creator" content="@cognitojayant" />
+  <link href='https://cognitojayant.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.86.1" />
+  <link rel="alternate" href="https://cognitojayant.github.io/index.xml" type="application/rss+xml" title="My Cognitive Cogitations"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://cognitojayant.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://cognitojayant.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://cognitojayant.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://cognitojayant.github.io">My Cognitive Cogitations</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Posts" href="/posts/">Posts</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Categories" href="/categories/">Categories</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags/">Tags</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/about/">About</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="My Cognitive Cogitations" href="https://cognitojayant.github.io">
+            <img class="avatar-img" src="https://cognitojayant.github.io/img/avatar-2.jpg" alt="My Cognitive Cogitations" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="posts-heading">
+              
+                <h1>Optimizations Algorithms in Machine Learning</h1>
+              
+              
+                
+              
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <h3 id="what-is-gradient-descent">What is Gradient Descent?</h3>
+<p>Gradient descent is a first-order iterative optimization algorithm in which search direction is guided by the gradient information of the objective function or to be precise in the opposite direction of the gradient of the objective function. Hence, the name  <strong>Gradient Descent</strong></p>
+<p>$$\theta_{t+1} = \theta_t -  \eta \cdot \nabla_\theta L(\theta) $$</p>
+<p>where $\nabla_\theta L(\theta)$  is the gradient with respect to $\theta$.</p>
+<p><img src="/posts/static/optimization/gradient-descent.webm" alt="Gradient_Descent"></p>
+<p>Gradient Descent [1] - We randomly initiate parameters then these parameters move through these terrains, the valleys to reach their optimum value by moving in the direction opposite to its gradient.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python">    <span class="c1">#implementation of gradient descent</span>
+    <span class="k">def</span> <span class="nf">gradient_descent</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+    	<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+    		<span class="n">params_grad</span> <span class="o">=</span> <span class="n">grad</span><span class="p">(</span><span class="n">loss_fn</span><span class="p">,</span> <span class="n">argnums</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)(</span><span class="n">theta</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    		<span class="n">params</span> <span class="o">=</span> <span class="n">params</span> <span class="o">-</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">params_grad</span>
+        <span class="k">return</span> <span class="n">params</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>But why move in the direction opposite to gradient direction? Why gradient in the opposite direction is optimum?
+The answer comes from Taylor&rsquo;s Series, ignoring higher order terms</p>
+<p>$$L\left( \theta +\eta \Delta \theta \right) =L\left( \theta \right) +\eta \Delta \theta ^{T}\cdot \nabla L\left( \theta \right) +\dfrac{n^{2}}{2!}\ast \triangle \theta ^{T}\nabla ^{2}L\left( \theta \right) \Delta \theta +\ldots$$</p>
+<p>We want to estimate the loss function at a new value of parameters such that there should be a decrease in the loss function.</p>
+<p>$$L\left( \theta +\eta \Delta \theta \right) -L\left( \theta \right) &lt;0$$</p>
+<p>Above equation also means that $\Delta \theta ^{T}\cdot L\left( \theta \right) &lt;0$ and range of this $[-1,1]$ as it is a inner product of two vectors.</p>
+<p>$$ -1 \leq cos \beta = \frac{\Delta \theta^T \cdot \nabla L(\theta)}{|\theta^T| \cdot |\nabla L(\theta)|} \leq 1$$</p>
+<p>$$-|\theta^T| \cdot |\nabla L(\theta)| \leq cos \beta |\theta^T| \cdot |\nabla L(\theta)|= \Delta \theta^T \cdot \nabla L(\theta) \leq |\theta^T| \cdot |\nabla L(\theta)|$$</p>
+<p>Therefore, $L\left( \theta +\eta \Delta \theta \right) -L\left( \theta \right) = cos \beta |\theta^T|$ is most negative when  $cos \beta$  is $-1$ i.e. when $\beta$ is $180^\degree$.</p>
+<ul>
+<li>In the context of machine learning, Gradient descent is an optimization algorithm to minimize an objective function i.e. error function or cost function $L(θ)$ that is parameterized by a model’s parameters $θ ∈ R^d$ by updating the parameters in the opposite direction of the gradient of the objective function $∇_θL(θ)$ w.r.t. to the parameters.</li>
+<li>In machine learning, we have assumed that the objective function is smooth and continuously differentiable. So we need to move in direction of the slope of the continuous surface generated by our objective function.  Gradient descent is a first-order optimization algorithm.</li>
+<li>To reach a global or local minimum, we have to decide a step size (how much to move in the opposite to gradient direction) that is dependent on the learning rate $\eta$.</li>
+</ul>
+<h4 id="why-gradient-descent-is-difficult">Why Gradient Descent is Difficult?</h4>
+<ul>
+<li>Choosing a proper Learning Rate?
+<ul>
+<li>Selecting an optimum learning rate can be very difficult choice to make.</li>
+<li>A very small learning rate will lead to slow convergence as it will require lot more iterations to reach its minimum.</li>
+<li>And choosing a very large learning rate can make convergence very difficult as error function or loss function may oscillates around the minima. Also, there is always as possibility of divergence.</li>
+</ul>
+</li>
+<li>Losing generalization for Dataset while Scheduler
+<ul>
+<li>Learning rate schedules try to adjust the learning rate during training by e.g. annealing, i.e. reducing the learning rate according to a pre-defined schedule or when the change in objective between epochs falls below a threshold. These schedules and thresholds, however, have to be defined in advance and are thus unable to adapt to a dataset’s characteristics</li>
+<li>Difficulty in Updating Sparse Dataset</li>
+<li>Additionally, the same learning rate applies to all parameter updates. If our data is sparse and our features have very different frequencies, we might not want to update all of them to the same extent, but perform a larger update for rarely occurring features.</li>
+</ul>
+</li>
+<li>Get trapped in saddle points
+<ul>
+<li>Another key challenge of minimizing highly non-convex error functions common for neural networks is avoiding getting trapped in their numerous suboptimal local minima</li>
+<li>Dauphin et al. [5] argue that the difficulty arises in fact not from local minima but from saddle points, i.e. points where one dimension slopes up and another slopes down. These saddle points are usually surrounded by a plateau of the same error, which makes it notoriously hard for SGD to escape, as the gradient is close to zero in all dimensions</li>
+</ul>
+</li>
+</ul>
+<h4 id="variants-of-gradient-descent">Variants of Gradient Descent</h4>
+<ul>
+<li>
+<h5 id="batch-gradient-descent">Batch gradient descent</h5>
+</li>
+</ul>
+<p>Vanilla gradient descent or sometimes called batch gradient descent works on the complete training dataset and hence, updates the parameter after calculating the mean of gradients for all the training data points with respect to $\theta_i$.</p>
+<p>$$\theta=\theta-\eta \cdot \nabla_{\theta} L\left(\theta ; x^{(i: i+n)} ; y^{(i: i+n)}\right)$$</p>
+<p>We need to traverse the whole dataset to perform one update, which makes batch gradient descent computationally expensive.</p>
+<p>Applying batch gradient descent when the dataset does not fit in memory, makes the algorithm slow and intractable. Another issue with batch gradient descent is updating the model on the run as in the case of online learning is not possible.</p>
+<ul>
+<li>
+<h5 id="stochastic-gradient-descent">Stochastic gradient descent</h5>
+</li>
+</ul>
+<p>Stochastic gradient descent (SGD) differs from batch gradient descent that it updates the parameters for each training examples</p>
+<p>$$\theta=\theta-\eta \cdot \nabla_{\theta} L\left(\theta ; x^{(i)} ; y^{(i)}\right)$$</p>
+<p><img src="/posts/static/optimization/oscillation-in-SGD.png" alt="overview"></p>
+<p>As we can see vanilla gradient descent performs unnecessary computations for large datasets, as it computes gradient for each parameters and updates through each examples. SGD relaxes this computations by performing one update at a time for a single example. Therefore, SGD are much faster than vanilla gradient descent and can be used in online learning.</p>
+<p>Due to high variance in updates in SGD leads to high frequency oscillations in the objective functions.   Vanilla gradient descent have  guaranteed to get to the minimum  of the basin of local minima or global minimum for any non-convex or convex surface. While SGD fluctuating behaviour can leads to better local minima but it also complicates the convergence as SGD keeps overshooting. However, if we keep a proper annealing rate SGD will converge like vanilla gradient descent</p>
+<ul>
+<li>
+<h5 id="mini-batch-gradient-descent">Mini-batch gradient descent</h5>
+</li>
+</ul>
+<p>Mini-batch takes the advantages of both the worlds of Vanilla gradient descent and SGD as it performs an update  based on the computations of very mini-batch of $b$.
+$$\theta=\theta-\eta \cdot \nabla_{\theta} L\left(\theta ; x^{(i: i+b)} ; y^{(i: i+b)}\right)$$</p>
+<p>Mini-batch gradient descent reduces the fluctuations i.e. stable convergence.
+Mini-batch gradient descent is typically the algorithm of choice when training a deep neural network.
+Mini-batch and SGD terms are used interchangeably in deep learning architecture.</p>
+<h4 id="accelerating-gradient-descent-optimization-algorithms">Accelerating Gradient descent optimization algorithms</h4>
+<h5 id="momentum">Momentum</h5>
+<p>In Momentum gradient descent, idea is that if we moving repeatedly in the same direction then we should be moving in faster rate with big steps in that direction or this can be seen as moving down a spherical ball in parabolic bowl. To do so, we add a momentum component to original stochastic gradient descent.</p>
+<p>$$\begin{aligned}v_{t} &amp;=\gamma v_{t-1}+\eta \nabla_{\theta} J(\theta) \\theta &amp;=\theta-v_{t}\end{aligned}$$</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python">        <span class="k">def</span> <span class="nf">grad_descent_momentum</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+        	<span class="n">velocity</span>  <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span>
+        	<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+        		<span class="n">params_grad</span> <span class="o">=</span> <span class="n">grad</span><span class="p">(</span><span class="n">loss_fn</span><span class="p">,</span> <span class="n">argnums</span><span class="o">=</span><span class="mi">0</span><span class="p">)(</span><span class="n">theta</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        		<span class="n">velocity</span> <span class="o">=</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">velocity</span> <span class="o">+</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">params_grad</span>
+        		<span class="n">params</span> <span class="o">=</span> <span class="n">params</span> <span class="o">-</span> <span class="n">velocity</span>
+        	<span class="k">return</span> <span class="n">params</span>
+        	
+</code></pre></td></tr></table>
+</div>
+</div><p>When using momentum i.e. moving a ball down a hill. Ball accumulates momentum as it goes down the hill, it will not slow down at the bottom of the hill. To reduce its momentum, we add damper into our equation which reduce the momentum as we go bottom of the hill. This results in faster convergence and reduced oscillations.</p>
+<ul>
+<li>
+<h5 id="nesterov-accelerated-gradient">Nesterov accelerated gradient</h5>
+</li>
+</ul>
+<p>In the regions that have gentle slopes, momentum  based gradient descent takes very large steps due to momentum it carries. And we want to have a higher steps  when slopes  are steeper and smaller updates when slope is gentle.</p>
+<p>To get this, we provide momentum term some kind of prescience i.e. we want to compute the gradient based on the future update or look ahead position $\gamma v_{t-1}$. And the nudge the parameters based on this.</p>
+<p><img src="/posts/static/optimization/momentum-nesterov.png" alt=""></p>
+<p>In Nesterov momentum,  instead of calculating gradient at the current position (red circle), we calculate gradient at &ldquo;look-ahead&rdquo; position [2].</p>
+<p>Image Credit:</p>
+<p><a href="https://cs231n.github.io/neural-networks-3/">CS231n Convolutional Neural Networks for Visual Recognition</a></p>
+<p>$$\begin{aligned}
+v_{t} &amp;=\gamma v_{t-1}+\eta \nabla_{\theta} L\left(\theta-\gamma v_{t-1}\right)
+\theta_{t + 1} &amp;=\theta_{t}-v_{t}
+\end{aligned}$$</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python">        <span class="k">def</span> <span class="nf">grad_descent_momentum</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+        	<span class="n">velocity</span>  <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span>
+        	<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+        		<span class="n">params_grad</span> <span class="o">=</span> <span class="n">grad</span><span class="p">(</span><span class="n">loss_fn</span><span class="p">,</span> <span class="n">argnums</span><span class="o">=</span><span class="mi">0</span><span class="p">)((</span><span class="n">theta</span> <span class="o">-</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">velocity</span><span class="p">)</span> <span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        		<span class="n">velocity</span> <span class="o">=</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">velocity</span> <span class="o">+</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">params_grad</span>
+        		<span class="n">params</span> <span class="o">=</span> <span class="n">params</span> <span class="o">-</span> <span class="n">velocity</span>
+        	<span class="k">return</span> <span class="n">params</span>
+        	
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="adagrad">AdaGrad</h5>
+<p>Adagrad is an optimization algorithm based on adaptive  learning rate. When we have sparse data i.e. most of the values are $0$. Their gradients will be $0$ most of the time. To mitigate this problem, decay  the learning rate for each parameters in proportional to its update history i.e. is to provide larger updates for infrequent and smaller updates for frequent parameters.</p>
+<p>$g_{t,i}$ be the gradient of the objective function with respect to parameters $\theta_i$ at timestep $t$.</p>
+<p>$$g_{t,i} = \nabla_{\theta_{t}} L(\theta_{t,i}) $$</p>
+<p>Then the SGD update for every parameter $\theta_i$  for each time step $t$:</p>
+<p>$$\theta_{t+1, i}=\theta_{t, i}-\eta \cdot g_{t, i}$$</p>
+<p>In its parameter update rule, Adagrad modifies the learning rate $\eta$ based on cumulative sum of past gradients at time step $t.$ Here, $\varepsilon$ is a smoothing term to avoid division by the $0.$</p>
+<p>$$\theta_{t+1, i}=\theta_{t, i}-\frac{\eta}{\sqrt{G_{t, i i}+\epsilon}} \cdot g_{t, i}$$</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python">        <span class="k">def</span> <span class="nf">ada_grad</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">):</span>
+            <span class="n">sq_grad</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+                <span class="n">params_grad</span> <span class="o">=</span> <span class="n">grad</span><span class="p">(</span><span class="n">loss_fn</span><span class="p">,</span> <span class="n">argnums</span><span class="o">=</span><span class="mi">0</span><span class="p">)(</span><span class="n">params</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+                <span class="n">sq_grad</span> <span class="o">+=</span> <span class="n">params_grad</span> <span class="o">**</span> <span class="mi">2</span>
+                <span class="n">params</span> <span class="o">=</span> <span class="n">params</span> <span class="o">-</span> <span class="p">(</span><span class="n">lr</span> <span class="o">*</span> <span class="n">params_grad</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sq_grad</span> <span class="o">+</span> <span class="n">epsilon</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">params</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Adagrad updates a different learning rate for each parameters $\theta_{i}$ for each time step $t$. Therefore, we need not to manually tune the learning rate $\eta$.</p>
+<p>However, Adagard accumulate the squared gradients in the denominator for each time step, with every step learning rate $\eta$ get diminished by and get sufficiently small that it stops learning.</p>
+<h5 id="adadelta">Adadelta</h5>
+<p>One of the issue with Adagrad is that its monotonically decreasing learning rate that reaches a point where it stops learning and adagrad promises to reduce this aggressive decrease in learning rate.</p>
+<p>To mitigate this, one ways is to restricts with some fixed size window $w$ of accumulated past gradients. Instead of storing inefficiently $w$ squared gradients, sum of gradients are computed as decayed average of all past squared gradients. Moving average of $E[g^2]_t$ is defined similar to momentum term.</p>
+<p>$$E\left[ g^{2}\right] _{t}=\gamma E\left[ g^{2}\right] {t-1}+\left( 1-\gamma\right) g{t}^{2}$$</p>
+<p>Typically the value of $\gamma$ is  around $0.9$.</p>
+<p>Similarly, decayed squared parameters updates</p>
+<p>$$E[\Delta \theta^2]<em>t = \gamma E[\Delta \theta^2]</em>{t-1} + (1 - \gamma) \Delta \theta^{2}_{t}$$</p>
+<p>Update rule for Adadelta</p>
+<p>$$\theta_{t+1} = \theta - \frac{RMS[\Delta \theta]_{t-1}}{RMS[g_{t}]} g_t$$</p>
+<p>where</p>
+<p>$$RMS[g_{t}] = \sqrt{[g^{2}]_t + \varepsilon}$$</p>
+<p>$$RMS[\Delta \theta]_{t-1} = \sqrt{E[\Delta\theta^2]_t + \varepsilon
+}$$</p>
+<p>$$\Delta \theta {t}=-\dfrac{\eta }{\sqrt{E\left[ g^{2}\right]_ t{+;\varepsilon }}}g_{t}$$</p>
+<pre><code>    ```python
+    def ada_delta(params, x, y, epochs, gamma_1= 0.9, gamma_2=0.9, epsilon=1e-8):
+        sq_grad = jnp.zeros(len(params)) # Sum of Squared Gradients
+        sq_up = jnp.zeros(len(params)) # Sum of Squared Updates
+        for _ in range(epochs):
+            params_grad = grad(loss_fn, argnums=0)(params, x, y)
+            sq_grad += gamma_1 * sq_grad + (1 - gamma_1) * (params_grad ** 2)
+            params_update = - ((jnp.sqrt(sq_up) + epsilon) / (jnp.sqrt(sq_grad) + epsilon)) * params_grad
+            sq_up += gamma_2 * sq_up + (1 - gamma_2) * (params_update ** 2)
+            params = params + params_update
+        return params
+    ```
+
+    With Adadelta, we do not need separately need to work on learning rate as learning rate need to eliminated.
+</code></pre>
+<h5 id="rmsprop">RMSprop</h5>
+<p>RMSprop is proposed by Geoff Hinton around same time as Adadelta. In fact, RMSprop is identical to the first parameter update to Adadelta</p>
+<p>$$\begin{aligned}E\left[g^{2}\right]<em>{t} &amp;=0.9 E\left[g^{2}\right]</em>{t-1}+0.1 g_{t}^{2} \\theta_{t+1} &amp;=\theta_{t}-\frac{\eta}{\sqrt{E\left[g^{2}\right]_{t}+\epsilon}} g_{t}\end{aligned}$$</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python">        <span class="k">def</span> <span class="nf">RMS_prop</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">):</span>
+            <span class="n">sq_grad</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+                <span class="n">params_grad</span> <span class="o">=</span> <span class="n">grad</span><span class="p">(</span><span class="n">loss_fn</span><span class="p">,</span> <span class="n">argnums</span><span class="o">=</span><span class="mi">0</span><span class="p">)(</span><span class="n">params</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+                <span class="n">sq_grad</span> <span class="o">+=</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">sq_grad</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">gamma</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">params_grad</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+                <span class="n">params</span> <span class="o">=</span> <span class="n">params</span> <span class="o">-</span> <span class="p">(</span><span class="n">lr</span> <span class="o">*</span> <span class="n">params_grad</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sq_grad</span><span class="p">)</span> <span class="o">+</span>  <span class="n">epsilon</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">params</span>
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="adaptive-moment-estimation-adam">Adaptive Moment Estimation (Adam)</h5>
+<p>ADAM is combination of RMSprop and Momentum as it combines the exponentially decaying average of past squared gradients $v_t$ and decaying average of gradients as in case of momentum.</p>
+<p>ADAM stores exponentially decaying average of past squared gradients $v_t$ as well as exponentially decaying average of past gradients $m_t$ which is kind of similar to momentum:</p>
+<p>$$\begin{aligned}m_{t}=\beta_ {1}m_{t-1}+\left( 1-\beta_ {1}\right) g_{t}\<br>
+v_{t}=\beta_ {2}v{t-1}+\left( 1-\beta_ {2}\right) g_{t}^{2}\end{aligned}$$</p>
+<p>$m_t$ and $v_t$ are estimates are based on first moment (the mean) and the second moment (the uncentered variance) of the gradients respectively</p>
+<p>As $m_t$ and $v_t$ are initialized  with vectors of  $0&rsquo;s$, ADAM observed to be biased towards zero, especially during the initial time steps as usually decay rates are small (i.e. $β_1$ and $β_2$ are close to 1)</p>
+<p>To counteract these biases by computing bias-corrected first and second moment estimates:</p>
+<p>$$\begin{aligned}\widehat{m}<em>{t}=\dfrac{m</em>{t}}{1-\beta_ {1}^t}\<br>
+\widehat{v}_{t}=\dfrac{v_{t}}{1-\beta _{2}^{t}}\end{aligned}$$</p>
+<p>Therefore, the update rule for ADAM update rules are:</p>
+<p>$$\theta_ {t+1}=\theta_ {t}-\dfrac{\eta}{\sqrt{\widehat{v}_{t}+\epsilon}}\widehat{m}_{t}$$</p>
+<p>The authors propose default values of $0.9$ for $β_1$, $0.999$ for $\beta_2$, and $1e-8$ for $\varepsilon$.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python">        <span class="k">def</span> <span class="nf">adam</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">beta_1</span><span class="o">=</span> <span class="mf">0.9</span><span class="p">,</span> <span class="n">beta_2</span><span class="o">=</span><span class="mf">0.999</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">):</span>
+            <span class="n">m_t</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
+            <span class="n">v_t</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">epochs</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">params_grad</span> <span class="o">=</span> <span class="n">grad</span><span class="p">(</span><span class="n">loss_fn</span><span class="p">,</span> <span class="n">argnums</span><span class="o">=</span><span class="mi">0</span><span class="p">)(</span><span class="n">params</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+                <span class="n">mean</span> <span class="o">=</span> <span class="n">beta_1</span> <span class="o">*</span> <span class="n">mean</span> <span class="o">+</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta_1</span><span class="p">)</span> <span class="o">*</span> <span class="n">mean</span><span class="p">)</span>
+                <span class="n">variance</span> <span class="o">=</span> <span class="n">beta_2</span> <span class="o">*</span> <span class="n">variance</span> <span class="o">+</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta_2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">params_grad</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+                <span class="n">mean_hat</span> <span class="o">=</span> <span class="n">mean</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">beta_1</span><span class="o">**</span><span class="n">i</span><span class="p">))</span>
+                <span class="n">variance_hat</span> <span class="o">=</span> <span class="n">mean</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">beta_2</span> <span class="o">**</span> <span class="n">i</span><span class="p">))</span>
+                <span class="n">params</span> <span class="o">=</span> <span class="n">params</span> <span class="o">-</span> <span class="p">(</span><span class="n">lr</span> <span class="o">*</span> <span class="n">mean_hat</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">posts</span><span class="o">/</span><span class="n">overview</span><span class="o">-</span><span class="n">optimization</span><span class="o">-</span><span class="n">algorithms</span><span class="o">/</span><span class="n">untitled</span><span class="o">.</span><span class="n">png</span>
+
+            <span class="k">return</span> <span class="n">params</span>
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="adamax">AdaMax</h5>
+<p>AdaMax is the generalization of ADAM to $L^p$ norm.  As we see that $v_t$ factor in the ADAM update rule scales the gradient inversely proportionally to the $L^2$  norm of the past gradients (via the $v_{t−1}$ term) and current gradient $|gt|^2$:</p>
+<p>$$v_{t}=\beta_ {2}v_{t-1}+\left( 1-\beta_ {2}\right) \left| g_{t}\right| ^{2}$$</p>
+<p>To generalize this update to the  $L^p$ norm, but with large $p$ values leads to unstable convergence. Hence, mostly in practice $L^1$ and $L^2$ being used.</p>
+<p>$$v_{t}=\beta_ {2}^{p}v_{t-1}+\left( 1-\beta_ {2}^{p}\right) \left| g{t}\right| ^{p}$$</p>
+<p>However,  $L^\infty$ also exhibits stable behavior.</p>
+<p>We use $u_t$ to denote the $L^\infty$ norm-constrained $v_t$:</p>
+<p>$$\begin{aligned}u_{t}&amp;=\beta_ {2}^{\infty }v_{t-1}+\left( 1-\beta _{2}^{\infty }\right)\mid g _{t}\mid^{\infty}
+\&amp;=\max \left( \beta_ {2}\cdot v_{t-1}\ \mid g _{t}\mid\right) \end{aligned}$$</p>
+<p>Therefore, AdaMax update rule:</p>
+<p>$$\theta_ {t+1}=\theta_ {t}-\dfrac{\eta}{u_{t}}\hat m_{t}$$</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python">        <span class="k">def</span> <span class="nf">adammax</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">beta_1</span><span class="o">=</span> <span class="mf">0.9</span><span class="p">,</span> <span class="n">beta_2</span><span class="o">=</span><span class="mf">0.999</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">):</span>
+            <span class="n">m_t</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
+            <span class="n">u_t</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">epochs</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">params_grad</span> <span class="o">=</span> <span class="n">grad</span><span class="p">(</span><span class="n">loss_fn</span><span class="p">,</span> <span class="n">argnums</span><span class="o">=</span><span class="mi">0</span><span class="p">)(</span><span class="n">params</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+                <span class="n">m_t</span> <span class="o">=</span> <span class="n">beta_1</span> <span class="o">*</span> <span class="n">m_t</span> <span class="o">+</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta_1</span><span class="p">)</span> <span class="o">*</span> <span class="n">m_t</span><span class="p">)</span>
+                <span class="n">u_t</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">beta_2</span> <span class="o">*</span> <span class="n">v_t</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">params_grad</span><span class="p">))</span>
+                <span class="n">m_t_hat</span> <span class="o">=</span> <span class="n">m_t</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">beta_1</span><span class="o">**</span><span class="n">i</span><span class="p">))</span>
+                <span class="n">params</span> <span class="o">=</span> <span class="n">params</span> <span class="o">-</span> <span class="p">(</span><span class="n">lr</span> <span class="o">*</span> <span class="n">m_t_hat</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">u_t</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">params</span>
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="nadam">Nadam</h5>
+<p>NADAM is a combination of ADAM and NAG as it integrates ADAM step with gradients at a look ahead time step except it updates the look ahead momentum vector instead look ahead gradient vector. Therefore, applying look ahead momentum vector directly to current parameters</p>
+<p>$$\begin{aligned}g_{t} &amp;=\nabla_{\theta_{t}} J\left(\theta_{t}\right) \m_{t} &amp;=\gamma m_{t-1}+\eta g_{t} \\theta_{t+1} &amp;=\theta_{t}-\left(\gamma m_{t}+\eta g_{t}\right)\end{aligned}$$</p>
+<p>In order to add ADAM to Nesterov momentum, we replace bias corrected  $\hat m_t$ in terms of $m_t$. However, we do not need to modify $\hat v_t$.</p>
+<p>$$\begin{aligned}m_{t} &amp;= \beta_{1}m_{t-1} + (1 - \beta_1)g_t \\hat m_{t} &amp;=\frac{m_t}{1 - \beta_{1}^{t}} \\theta_{t+1} &amp;=\theta_{t}-\frac{\eta}{\sqrt{\hat v_t} + \epsilon}\hat m_t\end{aligned}$$</p>
+<p>Replacing and expanding the Nesterov Momentum with above equations which gives us:</p>
+<p>$$\theta_{t+1} = \theta_t - \frac{\eta}{\sqrt{\hat v_t} + \epsilon}(\frac{\beta_1m_{t-1}}{1-\beta_{1}^{t}} + \frac{(1 - \beta_1)g_t}{1 - \beta_{1}^{t}})$$</p>
+<p>Putting bias-corrected estimate of the momentum vector of the previous time step into the above equation:</p>
+<p>$$\theta_{t+1} = \theta_t - \frac{\eta}{\sqrt{\hat v_t} + \epsilon}(\beta_1 \hat m_{t-1} + \frac{(1 - \beta_1)g_t}{1 - \beta_{1}^{t}})$$</p>
+<p>simply replacing this bias-corrected estimate of the momentum vector of the previous time step $\hat m_{t-1}$with the bias-corrected estimate of the current momentum vector $\hat m_t$, which gives us the Nadam update rule:</p>
+<p>$$\theta <em>{t+1}=\theta</em> {t}-\dfrac{\eta }{\sqrt{\widehat{v}<em>{t}}+\varepsilon}\left( \beta</em> {1}\widehat m_{t}+\dfrac{\left( 1-\beta_ {1}\right) g_{t}}{1-\beta _{1}t}\right)$$</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python">        <span class="k">def</span> <span class="nf">nadam</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">beta_1</span><span class="o">=</span> <span class="mf">0.9</span><span class="p">,</span> <span class="n">beta_2</span><span class="o">=</span><span class="mf">0.999</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">):</span>
+            <span class="n">m_t</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
+            <span class="n">v_t</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">epochs</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">params_grad</span> <span class="o">=</span> <span class="n">grad</span><span class="p">(</span><span class="n">loss_fn</span><span class="p">,</span> <span class="n">argnums</span><span class="o">=</span><span class="mi">0</span><span class="p">)(</span><span class="n">params</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+                <span class="n">m_t</span> <span class="o">=</span> <span class="n">beta_1</span> <span class="o">*</span> <span class="n">m_t</span> <span class="o">+</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta_1</span><span class="p">)</span> <span class="o">*</span> <span class="n">m_t</span><span class="p">)</span>
+                <span class="n">v_t</span> <span class="o">=</span> <span class="n">beta_2</span> <span class="o">*</span> <span class="n">v_t</span> <span class="o">+</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta_2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">params_grad</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+                <span class="n">m_t_hat</span> <span class="o">=</span> <span class="n">m_t</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">beta_1</span><span class="o">**</span><span class="n">i</span><span class="p">))</span>
+                <span class="n">v_t_hat</span> <span class="o">=</span> <span class="n">m_t</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">beta_2</span> <span class="o">**</span> <span class="n">i</span><span class="p">))</span>
+                <span class="n">params</span> <span class="o">=</span> <span class="n">params</span> <span class="o">-</span> <span class="p">(</span><span class="n">lr</span> <span class="o">*</span> <span class="p">(</span><span class="n">beta_1</span><span class="o">*</span><span class="n">m_t_hat</span> <span class="o">+</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta_1</span><span class="p">)</span> <span class="o">*</span> <span class="n">params_grad</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">beta_1</span><span class="p">)</span><span class="o">**</span><span class="n">i</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_t_hat</span><span class="p">)</span> <span class="o">+</span> <span class="n">epsilon</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">params</span>
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="hypergradient">Hypergradient</h5>
+<p>Above mentioned gradient descent methods are very sensitive to the learning rate or adapt the learning rate during the execution of gradient descent. Learning rate dictates the sensitivity of gradient descent as too high or low learning rate drastically affects the performance.</p>
+<p>A hypergradient is a gradient with respect to a hyperparameter. Hyperparameter algorithms decrease the sensitivity of the hyperparameter as it allows it to adapt more quickly.</p>
+<p>Hypergradient is all about applying gradient descent for learning rate $\eta.$ And this requires finding a partial derivative of the objective function with respect to the learning rate.</p>
+<p>$$\begin{aligned}\dfrac{\partial L\left( \theta_ {t+1}\right) }{\partial \eta }&amp;=\left( g_{t+1}\right) ^{T}\cdot \dfrac{\partial }{\partial \eta }\left( \theta_ {t}-\eta g_{t-1}\right) \<br>
+&amp;=\left( g_{t+1}\right) ^{T}\cdot \left( -g_{t-1}\right) \end{aligned}$$</p>
+<p>Computing the hypergradient thus requires keeping track of the last gradient.</p>
+<p>$$\begin{aligned}\theta <em>{t+1}&amp;=\theta <em>{t}-\mu\nabla <em>{\eta }L\left( \theta</em> {t}\right) \<br>
+&amp;=\theta {t}+\mu \left( g</em>{t}\right) ^{T}\cdot \left( g</em>{t-1}\right)
+\end{aligned}$$</p>
+<p>where $μ$ is the hypergradient learning rate.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python">    <span class="k">def</span> <span class="nf">hypergrad</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">hyper_lr</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+        <span class="n">prev_grad</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+            <span class="n">params_grad</span> <span class="o">=</span> <span class="n">grad</span><span class="p">(</span><span class="n">loss_fn</span><span class="p">,</span> <span class="n">argnums</span><span class="o">=</span><span class="mi">0</span><span class="p">)(</span><span class="n">params</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+            <span class="n">lr</span> <span class="o">=</span> <span class="n">lr</span> <span class="o">+</span> <span class="n">hyper_lr</span> <span class="o">*</span> <span class="p">(</span><span class="n">params_grad</span> <span class="o">*</span> <span class="n">prev_grad</span><span class="p">)</span>
+            <span class="n">prev_grad</span><span class="p">,</span> <span class="n">lr</span> <span class="o">=</span> <span class="n">params_grad</span><span class="p">,</span> <span class="n">lr</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="n">params</span> <span class="o">-</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">params_grad</span>
+        <span class="k">return</span> <span class="n">params</span><span class="o">--</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://cognitojayant.github.io/tags/machine-learning/">Machine Learning</a>&nbsp;
+            
+              <a href="https://cognitojayant.github.io/tags/deep-learning/">Deep Learning</a>&nbsp;
+            
+              <a href="https://cognitojayant.github.io/tags/mathematics/">Mathematics</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=https%3a%2f%2fcognitojayant.github.io%2fposts%2foverview-optimization-algorithms%2f&amp;text=Optimizations%20Algorithms%20in%20Machine%20Learning&amp;via=cognitojayant" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fcognitojayant.github.io%2fposts%2foverview-optimization-algorithms%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=https%3a%2f%2fcognitojayant.github.io%2fposts%2foverview-optimization-algorithms%2f&amp;title=Optimizations%20Algorithms%20in%20Machine%20Learning" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fcognitojayant.github.io%2fposts%2foverview-optimization-algorithms%2f&amp;title=Optimizations%20Algorithms%20in%20Machine%20Learning" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fcognitojayant.github.io%2fposts%2foverview-optimization-algorithms%2f&amp;title=Optimizations%20Algorithms%20in%20Machine%20Learning" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fcognitojayant.github.io%2fposts%2foverview-optimization-algorithms%2f&amp;description=Optimizations%20Algorithms%20in%20Machine%20Learning" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+
+              </div>
+            </section>
+        
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">See also</h4>
+                  <ul>
+                
+                
+                    <li><a href="/posts/mle/">Maximum Likelihood Estimate</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://cognitojayant.github.io/posts/memory-management-in-python/" data-toggle="tooltip" data-placement="top" title="Memory Management in Python">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+        
+          
+          <div class="disqus-comments">                  
+            <button id="show-comments" class="btn btn-default" type="button">Show <span class="disqus-comment-count" data-disqus-url="https://cognitojayant.github.io/posts/overview-optimization-algorithms">comments</span></button>
+            <div id="disqus_thread"></div>
+
+            <script type="text/javascript">
+              var disqus_config = function () {
+              this.page.url = 'https:\/\/cognitojayant.github.io\/posts\/overview-optimization-algorithms';
+            };
+
+          </script>
+          </div>
+          
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:cognitojayant@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/cognitojayant" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/cognitojayant" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/jayant-k-jha" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="cognitojayant.github.io">Jayant Jha</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2021
+          
+
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.86.1</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://cognitojayant.github.io/js/main.js"></script>
+<script src="https://cognitojayant.github.io/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://cognitojayant.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+$(function(){
+  $('#show-comments').on('click', function(){
+    var disqus_shortname = 'cognitojayant';
+      
+    (function() {
+      var disqus = document.createElement('script'); 
+      disqus.type = 'text/javascript'; 
+      disqus.async = true;
+      disqus.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(disqus);
+    })();
+      
+    $(this).hide(); 
+    });
+  });
+      
+</script>
+<script id="dsq-count-scr" src="//cognitojayant.disqus.com/count.js" async></script>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous" />
+<script>
+    if (typeof renderMathInElement === 'undefined') {
+        var getScript = (options) => {
+            var script = document.createElement('script');
+            script.defer = true;
+            script.crossOrigin = 'anonymous';
+            Object.keys(options).forEach((key) => {
+                script[key] = options[key];
+            });
+            document.body.appendChild(script);
+        };
+        getScript({
+            src: 'https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.js',
+            integrity: 'sha384-JiKN5O8x9Hhs/UE5cT5AAJqieYlOZbGT3CHws/y97o3ty4R7/O5poG9F3JoiOYw1',
+            onload: () => {
+                getScript({
+                    src: 'https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/mhchem.min.js',
+                    integrity: 'sha384-oa0lfxCGjaU1LdYckhq8LZcP+JTf8cyJXe69O6VE6UrShzWveT6KiCElJrck/stm',
+                    onload: () => {
+                        getScript({
+                            src: 'https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/contrib/auto-render.min.js',
+                            integrity: 'sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI',
+                            onload: () => {
+                                renderKaTex();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    } else {
+        renderKaTex();
+    }
+    function renderKaTex() {
+        renderMathInElement(
+            document.body,
+            {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\(", right: "\\)", display: false}
+                ]
+            }
+        );
+    }
+</script>
+
+    
+  </body>
+</html>
+

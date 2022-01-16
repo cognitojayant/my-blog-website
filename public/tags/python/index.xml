@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on My Cognitive Cogitations</title>
+    <link>https://cognitojayant.github.io/tags/python/</link>
+    <description>Recent content in Python on My Cognitive Cogitations</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>cognitojayant@gmail.com (Jayant Jha)</managingEditor>
+    <webMaster>cognitojayant@gmail.com (Jayant Jha)</webMaster>
+    <lastBuildDate>Thu, 13 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://cognitojayant.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Memory Management in Python</title>
+      <link>https://cognitojayant.github.io/posts/memory-management-in-python/</link>
+      <pubDate>Thu, 13 May 2021 00:00:00 +0000</pubDate>
+      <author>cognitojayant@gmail.com (Jayant Jha)</author>
+      <guid>https://cognitojayant.github.io/posts/memory-management-in-python/</guid>
+      <description>What is Memory Management? Memory management is a procedure by which applications or program to read and write some data from memory. A memory manager determines where to put application’s data. Since there’s only a finite chunk of memory available to us.
+This process of giving access to memory to a program or application is by in large called memory allocation. On top of hardware layers such as RAM or a hard drive is their an operating system (OS) layer which consists of a Kernel which can be considered as the operating system code that is responsible for interaction of hardware and software components.</description>
+    </item>
+    
+  </channel>
+</rss>

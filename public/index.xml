@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>My Cognitive Cogitations</title>
+    <link>https://cognitojayant.github.io/</link>
+    <description>Recent content on My Cognitive Cogitations</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>cognitojayant@gmail.com (Jayant Jha)</managingEditor>
+    <webMaster>cognitojayant@gmail.com (Jayant Jha)</webMaster>
+    <lastBuildDate>Sun, 11 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://cognitojayant.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Optimizations Algorithms in Machine Learning</title>
+      <link>https://cognitojayant.github.io/posts/overview-optimization-algorithms/</link>
+      <pubDate>Sun, 11 Jul 2021 00:00:00 +0000</pubDate>
+      <author>cognitojayant@gmail.com (Jayant Jha)</author>
+      <guid>https://cognitojayant.github.io/posts/overview-optimization-algorithms/</guid>
+      <description>What is Gradient Descent? Gradient descent is a first-order iterative optimization algorithm in which search direction is guided by the gradient information of the objective function or to be precise in the opposite direction of the gradient of the objective function. Hence, the name Gradient Descent
+$$\theta_{t+1} = \theta_t - \eta \cdot \nabla_\theta L(\theta) $$
+where $\nabla_\theta L(\theta)$ is the gradient with respect to $\theta$.
+Gradient Descent [1] - We randomly initiate parameters then these parameters move through these terrains, the valleys to reach their optimum value by moving in the direction opposite to its gradient.</description>
+    </item>
+    
+    <item>
+      <title>Memory Management in Python</title>
+      <link>https://cognitojayant.github.io/posts/memory-management-in-python/</link>
+      <pubDate>Thu, 13 May 2021 00:00:00 +0000</pubDate>
+      <author>cognitojayant@gmail.com (Jayant Jha)</author>
+      <guid>https://cognitojayant.github.io/posts/memory-management-in-python/</guid>
+      <description>What is Memory Management? Memory management is a procedure by which applications or program to read and write some data from memory. A memory manager determines where to put application’s data. Since there’s only a finite chunk of memory available to us.
+This process of giving access to memory to a program or application is by in large called memory allocation. On top of hardware layers such as RAM or a hard drive is their an operating system (OS) layer which consists of a Kernel which can be considered as the operating system code that is responsible for interaction of hardware and software components.</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://cognitojayant.github.io/about/</link>
+      <pubDate>Wed, 12 May 2021 00:38:49 +0530</pubDate>
+      <author>cognitojayant@gmail.com (Jayant Jha)</author>
+      <guid>https://cognitojayant.github.io/about/</guid>
+      <description>Summary  &amp;ldquo;It is not knowledge, but the act of learning, not possession but the act of getting there, which grants the greatest enjoyment&amp;rdquo; ~ Carl Friedrich Gauss
+ Hey, my name is Jayant Jha currently working as Machine Learning Scientist at a organization EZLab based out of Gurugram, Haryana, India. Given my effort and inquisitiveness to learn and understand, i gets awed by the nature that how little i know.</description>
+    </item>
+    
+    <item>
+      <title>Maximum Likelihood Estimate</title>
+      <link>https://cognitojayant.github.io/posts/mle/</link>
+      <pubDate>Sat, 18 Jul 2020 19:59:42 +0530</pubDate>
+      <author>cognitojayant@gmail.com (Jayant Jha)</author>
+      <guid>https://cognitojayant.github.io/posts/mle/</guid>
+      <description>Consider a model parametrised by a vector $\theta$, and let $X = (x_1,\cdots x_n)$ be observed data samples from the model. Then the function $p(X|\theta)$ is called the likelihood function if viewed as a function of the parameter vector $\theta$. It gives how probable the observed data $X$ is for different value of $\theta$. Likelihood is not a probability distribution over $\theta$ i.e. its integral with respect to $\theta$ may not always equal to one.</description>
+    </item>
+    
+  </channel>
+</rss>

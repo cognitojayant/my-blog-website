@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mathematics on My Cognitive Cogitations</title>
+    <link>https://cognitojayant.github.io/categories/mathematics/</link>
+    <description>Recent content in Mathematics on My Cognitive Cogitations</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>cognitojayant@gmail.com (Jayant Jha)</managingEditor>
+    <webMaster>cognitojayant@gmail.com (Jayant Jha)</webMaster>
+    <lastBuildDate>Sun, 11 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://cognitojayant.github.io/categories/mathematics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Optimizations Algorithms in Machine Learning</title>
+      <link>https://cognitojayant.github.io/posts/overview-optimization-algorithms/</link>
+      <pubDate>Sun, 11 Jul 2021 00:00:00 +0000</pubDate>
+      <author>cognitojayant@gmail.com (Jayant Jha)</author>
+      <guid>https://cognitojayant.github.io/posts/overview-optimization-algorithms/</guid>
+      <description>What is Gradient Descent? Gradient descent is a first-order iterative optimization algorithm in which search direction is guided by the gradient information of the objective function or to be precise in the opposite direction of the gradient of the objective function. Hence, the name Gradient Descent
+$$\theta_{t+1} = \theta_t - \eta \cdot \nabla_\theta L(\theta) $$
+where $\nabla_\theta L(\theta)$ is the gradient with respect to $\theta$.
+Gradient Descent [1] - We randomly initiate parameters then these parameters move through these terrains, the valleys to reach their optimum value by moving in the direction opposite to its gradient.</description>
+    </item>
+    
+    <item>
+      <title>Maximum Likelihood Estimate</title>
+      <link>https://cognitojayant.github.io/posts/mle/</link>
+      <pubDate>Sat, 18 Jul 2020 19:59:42 +0530</pubDate>
+      <author>cognitojayant@gmail.com (Jayant Jha)</author>
+      <guid>https://cognitojayant.github.io/posts/mle/</guid>
+      <description>Consider a model parametrised by a vector $\theta$, and let $X = (x_1,\cdots x_n)$ be observed data samples from the model. Then the function $p(X|\theta)$ is called the likelihood function if viewed as a function of the parameter vector $\theta$. It gives how probable the observed data $X$ is for different value of $\theta$. Likelihood is not a probability distribution over $\theta$ i.e. its integral with respect to $\theta$ may not always equal to one.</description>
+    </item>
+    
+  </channel>
+</rss>

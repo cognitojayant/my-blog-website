@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Statistics on My Cognitive Cogitations</title>
+    <link>https://cognitojayant.github.io/categories/statistics/</link>
+    <description>Recent content in Statistics on My Cognitive Cogitations</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>cognitojayant@gmail.com (Jayant Jha)</managingEditor>
+    <webMaster>cognitojayant@gmail.com (Jayant Jha)</webMaster>
+    <lastBuildDate>Sat, 18 Jul 2020 19:59:42 +0530</lastBuildDate><atom:link href="https://cognitojayant.github.io/categories/statistics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Maximum Likelihood Estimate</title>
+      <link>https://cognitojayant.github.io/posts/mle/</link>
+      <pubDate>Sat, 18 Jul 2020 19:59:42 +0530</pubDate>
+      <author>cognitojayant@gmail.com (Jayant Jha)</author>
+      <guid>https://cognitojayant.github.io/posts/mle/</guid>
+      <description>Consider a model parametrised by a vector $\theta$, and let $X = (x_1,\cdots x_n)$ be observed data samples from the model. Then the function $p(X|\theta)$ is called the likelihood function if viewed as a function of the parameter vector $\theta$. It gives how probable the observed data $X$ is for different value of $\theta$. Likelihood is not a probability distribution over $\theta$ i.e. its integral with respect to $\theta$ may not always equal to one.</description>
+    </item>
+    
+  </channel>
+</rss>

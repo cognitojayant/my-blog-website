@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Optimizations on My Cognitive Cogitations</title>
+    <link>https://cognitojayant.github.io/categories/optimizations/</link>
+    <description>Recent content in Optimizations on My Cognitive Cogitations</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>cognitojayant@gmail.com (Jayant Jha)</managingEditor>
+    <webMaster>cognitojayant@gmail.com (Jayant Jha)</webMaster>
+    <lastBuildDate>Sun, 11 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://cognitojayant.github.io/categories/optimizations/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Optimizations Algorithms in Machine Learning</title>
+      <link>https://cognitojayant.github.io/posts/overview-optimization-algorithms/</link>
+      <pubDate>Sun, 11 Jul 2021 00:00:00 +0000</pubDate>
+      <author>cognitojayant@gmail.com (Jayant Jha)</author>
+      <guid>https://cognitojayant.github.io/posts/overview-optimization-algorithms/</guid>
+      <description>What is Gradient Descent? Gradient descent is a first-order iterative optimization algorithm in which search direction is guided by the gradient information of the objective function or to be precise in the opposite direction of the gradient of the objective function. Hence, the name Gradient Descent
+$$\theta_{t+1} = \theta_t - \eta \cdot \nabla_\theta L(\theta) $$
+where $\nabla_\theta L(\theta)$ is the gradient with respect to $\theta$.
+Gradient Descent [1] - We randomly initiate parameters then these parameters move through these terrains, the valleys to reach their optimum value by moving in the direction opposite to its gradient.</description>
+    </item>
+    
+  </channel>
+</rss>

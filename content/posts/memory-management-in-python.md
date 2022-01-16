@@ -11,7 +11,7 @@ Memory management is a procedure by which applications or program to read and wr
 
 This process of giving access to memory to a program or application is by in large called memory allocation. On top of hardware layers such as RAM or a hard drive is their an operating system (OS) layer which consists of a *Kernel* which can be considered as the operating  system code that is responsible for interaction of hardware and software components. A *kernel* is the first program that loads at startup after bootloader and having a seperate reserved memory space from programs and applications.  It carries out (or denies) requests to read and write from memory.
 
-![kernel-hardware-interaction.png](/posts/memory-management-in-python/kernel-hardware-interaction.png)
+![kernel-hardware-interaction.png](memory-management-in-python/kernel-hardware-interaction.png)
 
 Memory management for your Python code is handled by the Python application or process. Above the OS layer, there are applications and processes at application layer, one of which is the Python application or processes.
 
